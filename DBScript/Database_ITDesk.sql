@@ -15,13 +15,22 @@ GO
 SELECT * FROM EmployeeInfo;
 INSERT into EmployeeInfo(EmployeeName,EmployeeEmail,Designation) values('Ali','syed.hasan@cygrp.com','Intern');
 
+CREATE TABLE [DeviceCategory](
+[CategoryId] [int] IDENTITY(1,1) NOT NULL,
+[DeviceType] [varchar](255) NOT NULL
+PRIMARY KEY CLUSTERED
+(
+[CategoryId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 
 
 CREATE TABLE [DeviceInfo](
 [DeviceId] [int] IDENTITY(1,1) NOT NULL,
 [UniqueCode] [varchar](255) NOT NULL UNIQUE,
 [DeviceName] [varchar](255) NOT NULL,
-[DeviceType] [varchar](255) NOT NULL,
+[CategoryId] [int] NOT NULL REFERENCES DeviceCategory(CategoryId) ,
 [EmployeeId] [int]  REFERENCES EmployeeInfo(EmployeeId) DEFAULT 0,
 [AssignedDate] [DATE] NOT NULL,
 [IsAssigned] [bit] Default 0,
