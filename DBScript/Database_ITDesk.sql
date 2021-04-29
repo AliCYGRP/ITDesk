@@ -4,7 +4,7 @@ CREATE TABLE [EmployeeInfo](
 [EmployeeName] [varchar](255) NOT NULL,
 [EmployeeEmail] [varchar](255) NOT NULL,
 [Designation] [varchar](255) NOT NULL,
-[Password] [varchar](max) NOT NULL DEFAULT '2c9c31108265d77886569d52e0a1f883',
+[Password] [varchar](max) NOT NULL DEFAULT 'U2FsdGVkX19M4O0Sqt4VEEZ6g+HlQLEWVwLhgAuWTQM=',
 [Role] [bit] NOT NULL DEFAULT 0 
 PRIMARY KEY CLUSTERED
 (
