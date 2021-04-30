@@ -99,6 +99,5 @@ values('IME7828','Samsung note 8',1,0);
  
 INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, IsAssigned)
 values('IME5635','Ipad Air',3,0);
- 
 INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, IsAssigned)
 values('IME5442','Ipad Air Max',3,0);
