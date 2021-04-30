@@ -9,7 +9,7 @@ namespace ITDesk.Models.Response
     {
         public string UniqueCode { get; set; }
         public string DeviceName { get; set; }
-        public DateTime? AssignedDate { get; set; }
+        public string AssignedDate { get; set; }
         public string EmployeeEmail { get; set; }
         public string AssignedBy { get; set; }
     }

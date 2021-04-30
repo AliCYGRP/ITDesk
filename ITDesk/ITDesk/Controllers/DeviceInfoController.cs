@@ -33,36 +33,34 @@ namespace ITDesk.Controllers
         [HttpGet]
         [Route("[action]")]
         // GET: api/DeviceInfo/data?isAssigned=0&&CategoryId=2
-        public ActionResult data(bool isAssigned = false, int CategoryId = 1)
+        public ActionResult data(bool isAssigned, int CategoryId)
         {
-            List<DeviceResponse> objModel = new List<DeviceResponse>();
-
-            var query = (from D in _context.DeviceInfo
-                         join E in _context.EmployeeInfo on D.EmployeeId equals E.EmployeeId
-                         where D.IsAssigned == isAssigned && D.CategoryId == CategoryId
-                         select new
-                         {
-                             D.UniqueCode,
-                             D.DeviceName,
-                             D.AssignedDate,
-                             E.EmployeeEmail,
-                             D.AssignedBy
-                         }).ToList();
-
-            foreach (var item in query.ToList())
+            if (isAssigned == true)
             {
-                objModel.Add(
-                    new DeviceResponse
-                    {
-                        UniqueCode = item.UniqueCode.ToString(),
-                        DeviceName = item.UniqueCode.ToString(),
-                        AssignedDate = item.AssignedDate,
-                        EmployeeEmail = item.EmployeeEmail.ToString(),
-                        AssignedBy = item.AssignedBy.ToString()
-                    });
-
+                var query = (from D in _context.DeviceInfo
+                             join E in _context.EmployeeInfo on D.EmployeeId equals E.EmployeeId
+                             where D.IsAssigned == isAssigned && D.CategoryId == CategoryId
+                             select new
+                             {
+                                 D.UniqueCode,
+                                 D.DeviceName,
+                                 D.AssignedDate,
+                                 E.EmployeeEmail,
+                                 D.AssignedBy
+                             }).ToList();
+                return Ok(query);
             }
-            return Ok(objModel);
+            else
+            {
+                var query = (from D in _context.DeviceInfo
+                             where D.IsAssigned == isAssigned && D.CategoryId == CategoryId
+                             select new
+                             {
+                                 D.UniqueCode,
+                                 D.DeviceName,
+                             }).ToList();
+                return Ok(query);
+            }
         }
 
         [HttpGet]
@@ -127,9 +125,10 @@ namespace ITDesk.Controllers
             var obj = _context.DeviceCategory.FirstOrDefault(x => x.DeviceType == dc.DeviceType);
             if (obj == null)
             {
-                return obj.CategoryId;
+                _context.DeviceCategory.Add(dc);
+                _context.SaveChanges();
             }
-            return obj.CategoryId;
+            return _context.DeviceCategory.FirstOrDefault(x => x.DeviceType == dc.DeviceType).CategoryId;
         }
 
         // PUT: api/DeviceInfo/5
