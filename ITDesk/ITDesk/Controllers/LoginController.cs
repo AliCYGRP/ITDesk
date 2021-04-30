@@ -3,6 +3,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using ITDesk.Models;
+using ITDesk.Models.Request;
+using ITDesk.Models.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -26,16 +28,20 @@ namespace ITDesk.Controllers
         // POST: api/Login
         [AllowAnonymous]
         [HttpPost]
-        public string employeeLogin([FromBody] EmployeeInfo employeeInfo)
+        public LoginResponse employeeLogin([FromBody] LoginRequest loginInfo)
         {
-            var loginInfo = AuthenticateLogin(employeeInfo);
+            var employeeInfo = AuthenticateLogin(loginInfo);
 
-            if (loginInfo != null)
+            if (employeeInfo != null)
             {
-                var tokenString = GenerateJSONWebToken(loginInfo);
-                return tokenString;
+                var tokenString = GenerateJSONWebToken(employeeInfo);
+                var query = _context.EmployeeInfo
+                            .Where(v => v.EmployeeEmail == loginInfo.EmployeeEmail)
+                            .Select(v => v.Role).ToList();
+                bool role = query[0];
+                return new LoginResponse(tokenString, role);
             }
-            return "";
+            return new LoginResponse("", false);
         }
 
         // PUT: api/Login/resetPassword/5
@@ -65,10 +71,10 @@ namespace ITDesk.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private EmployeeInfo AuthenticateLogin(EmployeeInfo employeeInfo)
+        private EmployeeInfo AuthenticateLogin(LoginRequest loginInfo)
         {
-            EmployeeInfo employeeObject = _context.EmployeeInfo.FirstOrDefault(x => x.EmployeeEmail == employeeInfo.EmployeeEmail && x.Password == employeeInfo.Password);
-            return employeeObject;
+            EmployeeInfo employeeInfo = _context.EmployeeInfo.FirstOrDefault(x => x.EmployeeEmail == loginInfo.EmployeeEmail && x.Password == loginInfo.Password);
+            return employeeInfo;
         }
     }
 }
