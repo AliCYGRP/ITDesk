@@ -105,3 +105,21 @@ after user.hsts bracket end
                     });
 
             }
+
+        // POST: api/Login
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult employeeLogin([FromBody] LoginRequest loginInfo)
+        {
+            var employeeInfo = AuthenticateLogin(loginInfo);
+
+            if (employeeInfo != null)
+            {
+                var tokenString = GenerateJSONWebToken(employeeInfo);
+                var role = _context.EmployeeInfo
+                            .Where(v => v.EmployeeEmail == loginInfo.EmployeeEmail)
+                            .Select(v => v.Role);
+                return new LoginResponse(tokenString,role);
+            }
+            return new LoginResponse("",false);
+        }
