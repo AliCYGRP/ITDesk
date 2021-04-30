@@ -35,13 +35,20 @@ namespace ITDesk.Controllers
             if (employeeInfo != null)
             {
                 var tokenString = GenerateJSONWebToken(employeeInfo);
-                var query = _context.EmployeeInfo
+
+                var queryRole = _context.EmployeeInfo
                             .Where(v => v.EmployeeEmail == loginInfo.EmployeeEmail)
                             .Select(v => v.Role).ToList();
-                bool role = query[0];
-                return new LoginResponse(tokenString, role);
+                bool role = queryRole[0];
+
+                var queryId = _context.EmployeeInfo
+                            .Where(v => v.EmployeeEmail == loginInfo.EmployeeEmail)
+                            .Select(v => v.EmployeeId).ToList();
+                int id = queryId[0];
+
+                return new LoginResponse(id,tokenString, role);
             }
-            return new LoginResponse("", false);
+            return new LoginResponse(0,"", false);
         }
 
         // PUT: api/Login/resetPassword/5

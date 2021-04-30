@@ -104,28 +104,6 @@ INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, IsAssigned)
 values('IME5442','Ipad Air Max',3,0);
 
 select * from deviceinfo;
+SELECT * FROM AuditTrail;
 
-SELECT D.UniqueCode, D.DeviceName, D.AssignedDate, E.EmployeeEmail, D.AssignedBy
-FROM DeviceInfo AS D JOIN EmployeeInfo AS E
-ON E.EmployeeId = E.EmployeeId
-WHERE D.CategoryId = 2 AND D.IsAssigned = 1;
 
-SELECT UniqueCode, DeviceName, AssignedDate, AssignedBy FROM DeviceInfo WHERE IsAssigned = 0;
-
-SELECT D.UniqueCode, D.DeviceName, D.AssignedDate, E.EmployeeEmail, D.AssignedBy
-FROM DeviceInfo AS D JOIN EmployeeInfo AS E
-ON  D.EmployeeId = E.EmployeeId
-WHERE D.CategoryId = 2 AND D.IsAssigned = 1;
-
-SELECT COUNT(*)
-FROM DeviceInfo
-WHERE IsAssigned = 0 AND CategoryId = 2;
-
-SELECT EmployeeEmail
-FROM EmployeeInfo
-WHERE Role = 0;
-
-INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId)
-values('IME3767','DellX432',2);
-
-SELECT [Role] FROM EmployeeInfo WHERE EmployeeEmail = 'syed.hasan@cygrp.com';

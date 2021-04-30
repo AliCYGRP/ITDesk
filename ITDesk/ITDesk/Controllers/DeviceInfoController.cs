@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ITDesk.Models;
+using ITDesk.Models.Request;
 using ITDesk.Models.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,12 +23,6 @@ namespace ITDesk.Controllers
         {
             _config = config;
             _context = context;
-        }
-        // GET: api/DeviceInfo
-        [HttpGet]
-        public string Get()
-        {
-            return "DeviceInfo API is Running";
         }
 
         [HttpGet]
@@ -83,24 +78,15 @@ namespace ITDesk.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        // GET: api/DeviceInfo/employeeEmail
-        public ActionResult employeeEmail()
+        // GET: api/DeviceInfo/categoryList
+        public ActionResult categoryList()
         {
-            List<string> employeeEmailList = new List<string>();
-
-            var query = (from E in _context.EmployeeInfo
-                         where E.Role == false
+            var query = (from DC in _context.DeviceCategory
                          select new
                          {
-                             E.EmployeeEmail
+                             DC.DeviceType
                          }).ToList();
-
-            foreach (var item in query.ToList())
-            {
-                employeeEmailList.Add(item.EmployeeEmail.ToString());
-
-            }
-            return Ok(employeeEmailList);
+            return Ok(query);
         }
 
         // GET: api/DeviceInfo/5
@@ -117,7 +103,7 @@ namespace ITDesk.Controllers
         {
         }
 
-        // POST: api/DeviceInfo
+        // POST: api/DeviceInfo/category
         [HttpPost]
         [Route("[action]")]
         public int category([FromBody] DeviceCategory dc)
@@ -131,16 +117,77 @@ namespace ITDesk.Controllers
             return _context.DeviceCategory.FirstOrDefault(x => x.DeviceType == dc.DeviceType).CategoryId;
         }
 
+        // POST: api/DeviceInfo/addDevice
+        [HttpPost]
+        [Route("[action]")]
+        public ActionResult addDevice([FromBody] NewDevice newDevice)
+        {
+            DeviceInfo deviceInfo = new DeviceInfo();
+            deviceInfo.UniqueCode = newDevice.UniqueCode;
+            deviceInfo.DeviceName = newDevice.DeviceName;
+            deviceInfo.CategoryId = newDevice.CategoryId;
+            _context.DeviceInfo.Add(deviceInfo);
+            _context.SaveChanges();
+            return Ok(deviceInfo);
+        }
+
         // PUT: api/DeviceInfo/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // PUT: api/DeviceInfo/allocate/5
+        [HttpPut]
+        [Route("[action]/{id}")]
+        public ActionResult allocate(int id, [FromBody] DeviceInfo device)
         {
+            DeviceInfo deviceInfo = _context.DeviceInfo.FirstOrDefault(d => d.DeviceId == id);
+            deviceInfo.AssignedDate = device.AssignedDate;
+            deviceInfo.EmployeeId = device.EmployeeId;
+            deviceInfo.AssignedBy = device.AssignedBy;
+            deviceInfo.IsAssigned = device.IsAssigned;
+            _context.DeviceInfo.Update(deviceInfo);
+            _context.SaveChanges();
+            return Ok(deviceInfo);
+        }
+
+        // PUT: api/DeviceInfo/deallocate/5
+        [HttpPut]
+        [Route("[action]/{id}")]
+        public ActionResult deallocate(int id)
+        {
+            DeviceInfo deviceInfo = _context.DeviceInfo.FirstOrDefault(d => d.DeviceId == id);
+            var employeeId = deviceInfo.EmployeeId;
+            deviceInfo.AssignedDate = null;
+            deviceInfo.EmployeeId = null;
+            deviceInfo.AssignedBy = null;
+            deviceInfo.IsAssigned = false;
+            _context.DeviceInfo.Update(deviceInfo);
+            _context.SaveChanges();
+
+            //Update Deallocated device in audit trail
+            AuditTrail auditTrailInfo = new AuditTrail();
+            auditTrailInfo.AuditId = 0;
+            auditTrailInfo.UniqueCode = deviceInfo.UniqueCode;
+            var query = _context.EmployeeInfo
+                            .Where(v => v.EmployeeId == employeeId)
+                            .Select(v => v.EmployeeEmail).ToList();
+            auditTrailInfo.EmployeeEmail = query[0];
+            auditTrailInfo.Date = DateTime.Now;
+            _context.AuditTrail.Update(auditTrailInfo);
+            _context.SaveChanges();
+            return Ok(deviceInfo);
+        }
+
+        // DELETE: api/DeviceInfo/5
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            DeviceInfo deviceInfo = _context.DeviceInfo.FirstOrDefault(device => device.DeviceId == id);
+            _context.DeviceInfo.Remove(deviceInfo);
+            _context.SaveChanges();
+            return Ok(deviceInfo);
         }
     }
 }

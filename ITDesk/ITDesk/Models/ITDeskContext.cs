@@ -63,11 +63,10 @@ namespace ITDesk.Models
                 entity.HasKey(e => e.DeviceId);
 
                 entity.HasIndex(e => e.UniqueCode)
-                    .HasName("UQ__DeviceIn__BB96DE6F809A3341")
+                    .HasName("UQ__DeviceIn__BB96DE6F01AA82C1")
                     .IsUnique();
 
                 entity.Property(e => e.AssignedBy)
-                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
@@ -77,8 +76,6 @@ namespace ITDesk.Models
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
-
-                entity.Property(e => e.EmployeeId).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.IsAssigned).HasDefaultValueSql("((0))");
 
@@ -93,12 +90,12 @@ namespace ITDesk.Models
                     .WithMany(p => p.DeviceInfo)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__DeviceInf__Categ__49C3F6B7");
+                    .HasConstraintName("FK__DeviceInf__Categ__3E52440B");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.DeviceInfo)
                     .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK__DeviceInf__Emplo__4AB81AF0");
+                    .HasConstraintName("FK__DeviceInf__Emplo__403A8C7D");
             });
 
             modelBuilder.Entity<EmployeeInfo>(entity =>
