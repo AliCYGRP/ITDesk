@@ -102,6 +102,3 @@ values('IME5635','Ipad Air',3,0);
  
 INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, IsAssigned)
 values('IME5442','Ipad Air Max',3,0);
-
-select * from deviceinfo;
-
