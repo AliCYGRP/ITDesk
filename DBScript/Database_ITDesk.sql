@@ -4,7 +4,7 @@ CREATE TABLE [EmployeeInfo](
 [EmployeeName] [varchar](255) NOT NULL,
 [EmployeeEmail] [varchar](255) NOT NULL,
 [Designation] [varchar](255) NOT NULL,
-[Password] [varchar](max) NOT NULL DEFAULT 'U2FsdGVkX19M4O0Sqt4VEEZ6g+HlQLEWVwLhgAuWTQM=',
+[Password] [varchar](max) NOT NULL DEFAULT '2c9c31108265d77886569d52e0a1f883',
 [Role] [bit] NOT NULL DEFAULT 0 
 PRIMARY KEY CLUSTERED
 (
@@ -127,3 +127,5 @@ WHERE Role = 0;
 
 INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId)
 values('IME3767','DellX432',2);
+
+SELECT [Role] FROM EmployeeInfo WHERE EmployeeEmail = 'syed.hasan@cygrp.com';

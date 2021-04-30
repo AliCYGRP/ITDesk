@@ -123,7 +123,7 @@ namespace ITDesk.Models
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .IsUnicode(false)
-                    .HasDefaultValueSql("('U2FsdGVkX19M4O0Sqt4VEEZ6g+HlQLEWVwLhgAuWTQM=')");
+                    .HasDefaultValueSql("('2c9c31108265d77886569d52e0a1f883')");
             });
         }
     }
