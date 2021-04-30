@@ -12543,23 +12543,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\syed.hasan\\.nuget\\packages\\": {},
+    "C:\\Users\\saksham.grover\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ITDesk\\ITDesk\\ITDesk\\ITDesk.csproj",
+      "projectUniqueName": "C:\\Users\\saksham.grover\\Desktop\\Project\\ITDesk\\ITDesk\\ITDesk\\ITDesk.csproj",
       "projectName": "ITDesk",
-      "projectPath": "E:\\ITDesk\\ITDesk\\ITDesk\\ITDesk.csproj",
-      "packagesPath": "C:\\Users\\syed.hasan\\.nuget\\packages\\",
-      "outputPath": "E:\\ITDesk\\ITDesk\\ITDesk\\obj\\",
+      "projectPath": "C:\\Users\\saksham.grover\\Desktop\\Project\\ITDesk\\ITDesk\\ITDesk\\ITDesk.csproj",
+      "packagesPath": "C:\\Users\\saksham.grover\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\saksham.grover\\Desktop\\Project\\ITDesk\\ITDesk\\ITDesk\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\syed.hasan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\saksham.grover\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
