@@ -49,7 +49,7 @@ namespace ITDesk
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
-            services.AddDbContext<ITDeskContext>(o => o.UseSqlServer("Server=CYG403\\SQLEXPRESS;Database=ITDesk;Trusted_Connection=True;"));
+            services.AddDbContext<ITDeskContext>(o => o.UseSqlServer("Server=CYG358\\SQLEXPRESS;Database=ITDesk;Trusted_Connection=True;"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

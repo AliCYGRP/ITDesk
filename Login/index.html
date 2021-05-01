@@ -32,7 +32,7 @@
 					<img src="images/img-01.png" alt="IMG" >
 				</div>
 
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" name="form_name">
 					<img src="https://media-exp1.licdn.com/dms/image/C4D0BAQFSk7W1KUiG0w/company-logo_200_200/0/1565806901139?e=2159024400&v=beta&t=VokcUH3-LWGBsZnb9hV16SMHeYvn0K3mAUjrL74ydEI" alt="" class="login200-pic js-tilt logos img-fluid"/>	
 					<span class="login100-form-title text-logs">
 						   IT Desk
@@ -42,7 +42,7 @@
 				 </span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="Email">
+						<input class="input100" type="text" name="email" placeholder="Email" id="user_login">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -50,7 +50,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Password">
+						<input class="input100" type="password" name="pass" placeholder="Password" id="password_login">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -58,20 +58,10 @@
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn" form="form_name" onclick="login()">
 							Login
 						</button>
 					</div>
-
-					<!-- <div class="text-center p-t-12">
-						<span class="txt1">
-							Forgot
-						</span>
-						<a class="txt2" href="#">
-							Username / Password?
-						</a>
-					</div> -->
-
 					
 				</form>
 			</div>
@@ -90,9 +80,11 @@
 	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
 	
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script src="js/script.js"></script>
 <script>
 	$('.js-tilt').tilt({
 			scale: 1.1

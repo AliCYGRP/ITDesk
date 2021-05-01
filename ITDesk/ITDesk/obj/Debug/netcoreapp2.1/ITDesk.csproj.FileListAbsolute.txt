@@ -12,3 +12,17 @@ E:\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.AssemblyInfo.cs
 E:\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.RazorTargetAssemblyInfo.cache
 E:\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.dll
 E:\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.pdb
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\bin\Debug\netcoreapp2.1\ITDesk.deps.json
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\bin\Debug\netcoreapp2.1\ITDesk.runtimeconfig.json
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\bin\Debug\netcoreapp2.1\ITDesk.runtimeconfig.dev.json
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\bin\Debug\netcoreapp2.1\ITDesk.dll
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\bin\Debug\netcoreapp2.1\ITDesk.pdb
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.csprojAssemblyReference.cache
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.csproj.CoreCompileInputs.cache
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.RazorAssemblyInfo.cache
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.RazorAssemblyInfo.cs
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.AssemblyInfoInputs.cache
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.AssemblyInfo.cs
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.RazorTargetAssemblyInfo.cache
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.dll
+C:\Users\divyanshu.goyal\Desktop\ITDesk\ITDesk\ITDesk\obj\Debug\netcoreapp2.1\ITDesk.pdb

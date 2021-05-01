@@ -25,7 +25,7 @@ namespace ITDesk.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=CYG403\\SQLEXPRESS;Database=ITDesk;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=CYG358\\SQLEXPRESS;Database=ITDesk;Trusted_Connection=True;");
             }
         }
 
@@ -123,7 +123,7 @@ namespace ITDesk.Models
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .IsUnicode(false)
-                    .HasDefaultValueSql("('U2FsdGVkX19M4O0Sqt4VEEZ6g+HlQLEWVwLhgAuWTQM=')");
+                    .HasDefaultValueSql("('2c9c31108265d77886569d52e0a1f883')");
             });
         }
     }
