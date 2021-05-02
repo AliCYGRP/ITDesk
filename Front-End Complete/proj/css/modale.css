@@ -1,0 +1,29 @@
+
+.modal-header {
+    background-color: #fff;
+    padding:4px 10px;
+    color:#FFF;
+    display: flex;
+    border-bottom: 1px solid #e3e6f0;
+    border-top-left-radius: calc(0.3rem - 1px);
+    border-top-right-radius: calc(0.3rem - 1px);
+    align-items: center;
+   
+ }
+ .modal-body {
+     /* Hidden by default */
+    background-color: white;
+    text-align: center;
+    align-items: center;
+    padding:9px 15px;
+    color:#ffb347;
+    border-radius: 12rem;
+    font-family:"Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    /* border-bottom:4px solid #ffb347; */
+
+ }
+.modal-footer {
+    text-align: center;
+    background-color: #FAEDBC;
+ } 
+ 
