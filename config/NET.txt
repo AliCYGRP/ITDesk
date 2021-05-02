@@ -55,3 +55,71 @@ after user.hsts bracket end
             app.UseMvc();
 8888888
 ********
+
+
+
+        [HttpGet]
+        [Route("[action]")]
+        // GET: api/DeviceInfo/data?isAssigned=0&&CategoryId=2
+        public ActionResult data(bool isAssigned, int CategoryId)
+        {
+            if (isAssigned == true)
+            {
+                var query = (from D in _context.DeviceInfo
+                             join E in _context.EmployeeInfo on D.EmployeeId equals E.EmployeeId
+                             where D.IsAssigned == isAssigned && D.CategoryId == CategoryId
+                             select new
+                             {
+                                 D.UniqueCode,
+                                 D.DeviceName,
+                                 D.AssignedDate,
+                                 E.EmployeeEmail,
+                                 D.AssignedBy
+                             }).ToList();
+            } else
+            {
+                var query = (from D in _context.DeviceInfo
+                             where D.IsAssigned == isAssigned && D.CategoryId == CategoryId
+                             select new
+                             {
+                                 D.UniqueCode,
+                                 D.DeviceName,
+                                 D.AssignedDate,
+                                 D.AssignedBy
+                             }).ToList();
+            }
+
+            return Ok(query);
+        }
+
+            foreach (var item in query.ToList())
+            {
+                objModel.Add(
+                    new DeviceResponse
+                    {
+                        UniqueCode = item.UniqueCode.ToString(),
+                        DeviceName = item.UniqueCode.ToString(),
+                        AssignedDate = item.AssignedDate,
+                        EmployeeEmail = item.EmployeeEmail.ToString(),
+                        AssignedBy = item.AssignedBy.ToString()
+                    });
+
+            }
+
+        // POST: api/Login
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult employeeLogin([FromBody] LoginRequest loginInfo)
+        {
+            var employeeInfo = AuthenticateLogin(loginInfo);
+
+            if (employeeInfo != null)
+            {
+                var tokenString = GenerateJSONWebToken(employeeInfo);
+                var role = _context.EmployeeInfo
+                            .Where(v => v.EmployeeEmail == loginInfo.EmployeeEmail)
+                            .Select(v => v.Role);
+                return new LoginResponse(tokenString,role);
+            }
+            return new LoginResponse("",false);
+        }

@@ -16,6 +16,7 @@ namespace ITDesk.Models
         }
 
         public virtual DbSet<AuditTrail> AuditTrail { get; set; }
+        public virtual DbSet<DeviceCategory> DeviceCategory { get; set; }
         public virtual DbSet<DeviceInfo> DeviceInfo { get; set; }
         public virtual DbSet<EmployeeInfo> EmployeeInfo { get; set; }
 
@@ -47,16 +48,25 @@ namespace ITDesk.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<DeviceCategory>(entity =>
+            {
+                entity.HasKey(e => e.CategoryId);
+
+                entity.Property(e => e.DeviceType)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<DeviceInfo>(entity =>
             {
                 entity.HasKey(e => e.DeviceId);
 
                 entity.HasIndex(e => e.UniqueCode)
-                    .HasName("UQ__DeviceIn__BB96DE6F4E9CEEE2")
+                    .HasName("UQ__DeviceIn__BB96DE6F01AA82C1")
                     .IsUnique();
 
                 entity.Property(e => e.AssignedBy)
-                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
@@ -67,13 +77,6 @@ namespace ITDesk.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.DeviceType)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.EmployeeId).HasDefaultValueSql("((0))");
-
                 entity.Property(e => e.IsAssigned).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.QrCode).IsUnicode(false);
@@ -83,10 +86,16 @@ namespace ITDesk.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.DeviceInfo)
+                    .HasForeignKey(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__DeviceInf__Categ__3E52440B");
+
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.DeviceInfo)
                     .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK__DeviceInf__Emplo__3C69FB99");
+                    .HasConstraintName("FK__DeviceInf__Emplo__403A8C7D");
             });
 
             modelBuilder.Entity<EmployeeInfo>(entity =>

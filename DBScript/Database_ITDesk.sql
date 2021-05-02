@@ -12,8 +12,6 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-SELECT * FROM EmployeeInfo;
-INSERT into EmployeeInfo(EmployeeName,EmployeeEmail,Designation) values('Ali','syed.hasan@cygrp.com','Intern');
 
 CREATE TABLE [DeviceCategory](
 [CategoryId] [int] IDENTITY(1,1) NOT NULL,
@@ -30,11 +28,11 @@ CREATE TABLE [DeviceInfo](
 [DeviceId] [int] IDENTITY(1,1) NOT NULL,
 [UniqueCode] [varchar](255) NOT NULL UNIQUE,
 [DeviceName] [varchar](255) NOT NULL,
-[CategoryId] [int] NOT NULL REFERENCES DeviceCategory(CategoryId) ,
-[EmployeeId] [int]  REFERENCES EmployeeInfo(EmployeeId) DEFAULT 0,
-[AssignedDate] [DATE] NOT NULL,
+[CategoryId] [int] NOT NULL REFERENCES DeviceCategory(CategoryId) DEFAULT 0,
+[AssignedDate] [DATE],
+[EmployeeId] [int] REFERENCES EmployeeInfo(EmployeeId),
 [IsAssigned] [bit] Default 0,
-[AssignedBy] [varchar](255) NOT NULL,
+[AssignedBy] [varchar](255),
 [QrCode] [varchar](max)
 PRIMARY KEY CLUSTERED
 (
@@ -42,8 +40,6 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-SELECT * froM DeviceInfo;
-
 
 CREATE TABLE [AuditTrail](
 [AuditId] [int] IDENTITY(1,1) NOT NULL,
@@ -57,3 +53,57 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 SELECT * FROM AuditTrail;
+
+SELECT * FROM EmployeeInfo;
+INSERT into EmployeeInfo(EmployeeName,EmployeeEmail,Designation) values('Ali','syed.hasan@cygrp.com','Intern');
+INSERT into EmployeeInfo(EmployeeName,EmployeeEmail,Designation) values('Gurnoor','gurnoor.singh@cygrp.com','Intern');
+INSERT into EmployeeInfo(EmployeeName,EmployeeEmail,Designation) values('Saksham','saksham.grover@cygrp.com','Intern');
+INSERT into EmployeeInfo(EmployeeName,EmployeeEmail,Designation,Role) values('Abhinav','abhinav.mishra@cygrp.com','IT',1);
+
+
+SELECT * FROM DeviceCategory;
+INSERT into DeviceCategory values('Mobile');
+INSERT into DeviceCategory values('Laptop');
+INSERT into DeviceCategory values('Pad');
+
+SELECT * FROM DeviceInfo;
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, EmployeeId, AssignedDate,IsAssigned,AssignedBy)
+values('IMEI397689237','DellXZ7',1,3,'2021-03-15',1,'Aman');
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, IsAssigned)
+values('Latitude550','DellX432',1,0);
+
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, EmployeeId, AssignedDate,IsAssigned,AssignedBy)
+values('IMEI397689238','DellXZ7',2,2,'2021-03-15',1,'Aman');
+ 
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, EmployeeId, AssignedDate,IsAssigned,AssignedBy)
+values('IMEI397689239','DellXY7',2,1,'2021-03-15',1,'Aman');
+ 
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, EmployeeId, AssignedDate,IsAssigned,AssignedBy)
+values('IMEI3979435','iphone XS max',1,3,'2021-03-15',1,'Sam');
+ 
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, EmployeeId, AssignedDate,IsAssigned,AssignedBy)
+values('IMEI397689435','iphone XS',1,2,'2021-03-15',1,'Sam');
+ 
+
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, EmployeeId, AssignedDate,IsAssigned,AssignedBy)
+values('IMEI3976435','NOKIA 1100',1,1,'2021-04-15',1,'Sam');
+ 
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, IsAssigned)
+values('IME3767','DellX432',2,0);
+ 
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, IsAssigned)
+values('IME3765','DellX432',2,0);
+ 
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, IsAssigned)
+values('IME7828','Samsung note 8',1,0);
+ 
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, IsAssigned)
+values('IME5635','Ipad Air',3,0);
+ 
+INSERT into DeviceInfo(UniqueCode, DeviceName, CategoryId, IsAssigned)
+values('IME5442','Ipad Air Max',3,0);
+
+select * from deviceinfo;
+SELECT * FROM AuditTrail;
+
+
