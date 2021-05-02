@@ -161,3 +161,5 @@ function openAdmin() {
   function openEmployee() {
     location.replace("../Employee.html")
   }
+
+  
