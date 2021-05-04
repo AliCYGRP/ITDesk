@@ -37,6 +37,7 @@ namespace ITDesk.Controllers
                              where D.IsAssigned == isAssigned && D.CategoryId == CategoryId
                              select new
                              {
+                                 D.DeviceId,
                                  D.UniqueCode,
                                  D.DeviceName,
                                  D.AssignedDate,
@@ -51,6 +52,7 @@ namespace ITDesk.Controllers
                              where D.IsAssigned == isAssigned && D.CategoryId == CategoryId
                              select new
                              {
+                                 D.DeviceId,
                                  D.UniqueCode,
                                  D.DeviceName,
                              }).ToList();
@@ -60,31 +62,43 @@ namespace ITDesk.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        // GET: api/DeviceInfo/count?CategoryId=2
-        public int totalCount(int CategoryId)
-        {
-            int recordCount = _context.DeviceInfo.Count(x => x.CategoryId == CategoryId);
-            return recordCount;
-        }
-
-        [HttpGet]
-        [Route("[action]")]
-        // GET: api/DeviceInfo/freeAssignedCount?isAssigned=0&&CategoryId=2
-        public int freeAssignedCount(bool isAssigned, int CategoryId)
-        {
-            int count = _context.DeviceInfo.Count(x => x.IsAssigned == isAssigned && x.CategoryId == CategoryId);
-            return count;
-        }
-
-        [HttpGet]
-        [Route("[action]")]
         // GET: api/DeviceInfo/categoryList
         public ActionResult categoryList()
         {
+            List<CategoryList> objModel = new List<CategoryList>();
             var query = (from DC in _context.DeviceCategory
                          select new
                          {
+                             DC.CategoryId,
                              DC.DeviceType
+                         });
+            foreach (var item in query.ToList())
+            {
+                objModel.Add(
+                    new CategoryList
+                    {
+                        CategoryId = item.CategoryId,
+                        DeviceType = item.DeviceType.ToString(),
+                        TotalCount = _context.DeviceInfo.Count(x => x.CategoryId == item.CategoryId),
+                        FreeCount = _context.DeviceInfo.Count(x => x.IsAssigned == false && x.CategoryId == item.CategoryId),
+                        AllocatedCount = _context.DeviceInfo.Count(x => x.IsAssigned == true && x.CategoryId == item.CategoryId)
+                    });
+
+            }
+            return Ok(objModel);
+        }
+
+        // GET: api/DeviceInfo/auditTrail/IMEI5823972
+        [HttpGet]
+        [Route("[action]/{uniqueCode}")]
+        public ActionResult auditTrail(string uniqueCode)
+        {
+            var query = (from A in _context.AuditTrail
+                         where A.UniqueCode.ToString().Equals(uniqueCode) == false
+                         select new
+                         {
+                             A.EmployeeEmail,
+                             A.Date
                          }).ToList();
             return Ok(query);
         }

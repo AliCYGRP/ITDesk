@@ -38,6 +38,7 @@ namespace ITDesk.Controllers
                          where D.EmployeeId == id
                          select new
                          {
+                             D.DeviceId,
                              D.UniqueCode,
                              D.DeviceName,
                              D.AssignedDate,
@@ -66,6 +67,7 @@ namespace ITDesk.Controllers
                          where E.Role == false
                          select new
                          {
+                             E.EmployeeId,
                              E.EmployeeEmail
                          }).ToList();
             return Ok(query);

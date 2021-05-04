@@ -55,13 +55,15 @@ namespace ITDesk.Controllers
         [Authorize]
         [HttpPut]
         [Route("[action]/{id}")]
-        public ActionResult resetPassword(int id, [FromBody] string password)
+        public int resetPassword(int id, [FromBody] ResetPasswordResponse loginRequest)
         {
             EmployeeInfo employeeInfo = _context.EmployeeInfo.FirstOrDefault(x => x.EmployeeId == id);
-            employeeInfo.Password = password;
+            if (loginRequest.CurrentPassword != employeeInfo.Password)
+                return 0;
+            employeeInfo.Password = loginRequest.NewPassword;
             _context.EmployeeInfo.Update(employeeInfo);
             _context.SaveChanges();
-            return Ok(employeeInfo);
+            return 1;
         }
 
         private string GenerateJSONWebToken(EmployeeInfo employeeInfo)
