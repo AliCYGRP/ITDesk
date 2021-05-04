@@ -134,15 +134,19 @@ namespace ITDesk.Controllers
         // POST: api/DeviceInfo/addDevice
         [HttpPost]
         [Route("[action]")]
-        public ActionResult addDevice([FromBody] NewDevice newDevice)
+        public int addDevice([FromBody] NewDevice newDevice)
         {
+            var uniqueCodeExists = _context.DeviceInfo.Any(x => x.UniqueCode == newDevice.UniqueCode);
+            if (uniqueCodeExists){
+                return 0;
+            }
             DeviceInfo deviceInfo = new DeviceInfo();
             deviceInfo.UniqueCode = newDevice.UniqueCode;
             deviceInfo.DeviceName = newDevice.DeviceName;
             deviceInfo.CategoryId = newDevice.CategoryId;
             _context.DeviceInfo.Add(deviceInfo);
             _context.SaveChanges();
-            return Ok(deviceInfo);
+            return 1;
         }
 
         // PUT: api/DeviceInfo/5
@@ -202,6 +206,21 @@ namespace ITDesk.Controllers
             _context.DeviceInfo.Remove(deviceInfo);
             _context.SaveChanges();
             return Ok(deviceInfo);
+        }
+
+        // DELETE: api/DeviceInfo/deleteCategory/5
+        [HttpDelete]
+        [Route("[action]/{id}")]
+        public int deleteCategory(int id)
+        {
+            int TotalCount = _context.DeviceInfo.Count(x => x.CategoryId == id);
+            if (TotalCount == 0){
+                DeviceCategory deviceCategory = _context.DeviceCategory.FirstOrDefault(category => category.CategoryId == id);
+                _context.DeviceCategory.Remove(deviceCategory);
+                _context.SaveChanges();
+                return 1;
+            }  
+            return 0;
         }
     }
 }
